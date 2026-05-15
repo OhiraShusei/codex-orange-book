@@ -776,6 +776,8 @@ strong { font-weight: 600; }
 
 <p>这是橙皮书系列第一次明确做版本迭代。之前几本要么写完就定稿，要么悄悄改两处。这次我决定把节奏定下来：<strong>半年一修</strong>，每次修订独立标版本号、附修订说明。AI工具的迭代太快，停在某个时间点的书不如一本会跟着工具一起长的书。</p>
 
+<p><strong>临门补一笔（2026-05-14）：</strong>v2 定稿没几个小时，OpenAI 上线了「Work with Codex from anywhere」——把 Codex 集成进了 ChatGPT 手机端。手机现在可以镜像桌面 Codex 上正在跑的工作并远程审批。我在 §01 末尾加了「尾声」一节，§06 也补了一段。「五形态」的框架仍然成立，手机版是桌面 App 的远程伴侣，不算独立的第六形态。这种节奏就是 AI 工具的日常。</p>
+
 <p>花叔<br>2026年5月（v2.0.0）</p>
 
 </div>
@@ -932,6 +934,30 @@ strong { font-weight: 600; }
 <p><strong>新尝试</strong>：Chrome扩展。这块我5月装上之后用得最多的场景是「让Codex帮我看LinkedIn上某个人的过往项目」「让它扫一遍Gmail里某个标签下的所有邮件做摘要」。这些过去用脚本难做（要解决登录、反爬虫、cookie），现在直接复用我已登录的Chrome会话搞定。Chrome扩展把Codex从「程序员工具」往「知识工作者工具」推了一步。</p>
 
 <div class="callout"><strong>花叔的经验：</strong>不要因为有五种形态就五种都装一遍。先从CLI开始用稳，等你日常被某个具体痛点卡住，比如「我希望它在我合上电脑之后还在跑」「我希望它能帮我刷一遍Gmail」，再去开对应的那个入口。每多开一种形态，意味着多一套配额、多一套配置维护成本。Codex是一套系统，但你不必一上来就把整套系统都装上。</div>
+
+<h3>尾声：Codex 手机版（2026-05-14）</h3>
+
+<p>v2 即将定稿的前一天，OpenAI 上线了「Work with Codex from anywhere」——把 Codex 集成进了 ChatGPT 手机端。这里值得专门讲一下，因为定位很重要。</p>
+
+<p>它<strong>不是</strong>新的第六形态。不是独立的 Codex iOS/Android App，也没法把代码库下到手机本地跑 agent。它的真实身份是：<strong>桌面 Codex App 的远程控制面板</strong>。把手机和正在运行 Codex App 的 Mac 配对（Windows「即将支持」），扫码即可。之后手机上能实时看到那台机器上每个 thread 的状态——终端输出、截图、diff、测试结果、审批弹窗，并且可以远程操控。</p>
+
+<p>手机端能做的事：</p>
+<ul>
+<li>浏览和切换桌面上正在运行的 thread</li>
+<li>实时看到截图、diff 和测试结果</li>
+<li>审批命令、切换模型、响应决策点</li>
+<li>新建任务、追加上下文</li>
+</ul>
+
+<p>留在桌面上的事：</p>
+<ul>
+<li>你的文件、凭据、权限、本地环境配置</li>
+<li>真正的 agent 执行</li>
+</ul>
+
+<p>目前是 preview 阶段，iPhone、iPad、Android 全平台、所有套餐（包括 Free 和 Go）滚动放量。AGENTS.md 是否生效、和 Codex Cloud thread 是否互通官方还没明确文档——配对之后自己测一下比较稳。</p>
+
+<p>如果你已经在用 Automations 跑跨天的长任务，手机版正好填补了一个明显的缺口：你可以在通勤路上看进度、批准下一步动作，然后继续走。按交付载体算形态数确实从五变到了六，但心智上我更愿意把它归到<strong>「Codex App 的延伸」</strong>而非独立形态。来源：<a href="https://openai.com/index/work-with-codex-from-anywhere/">openai.com/index/work-with-codex-from-anywhere</a>。</p>
 
 </div>
 
@@ -2377,6 +2403,26 @@ sandbox_mode = "read-only"</code></pre>
 <div class="callout">
 <strong>花叔的经验：</strong>Claude Code也有Desktop App，但Codex App的Computer Use、In-App Browser、Image Generation、Automations续跑这套组合是独有的。如果你只用CLI，等于只用到了Codex一半的能力。但要诚实讲：MultiAgentV2目前在子agent死循环、串话、栈泄漏三个bug间反复，生产关键任务先做smoke test再放进去。「能用」不等于「稳」，这是我对2026-05-14这个版本最真实的态度。
 </div>
+
+<h3>手机伴侣（2026-05-14）</h3>
+
+<p>v2 临门定稿之际，OpenAI 把 Codex 集成进了 ChatGPT 手机端。机制上这是桌面 App 的延伸而非新形态：手机扫码和正在跑 Codex App 的 Mac 配对之后，手机上就能实时看到那台机器上每个 thread 的状态。</p>
+
+<p>它给 App 的工作流带来什么变化：</p>
+<ul>
+<li><strong>随时随地审批。</strong>「我开了个长任务但要守着批准弹窗」这个问题基本消失了。哪怕在通勤路上也能推进。</li>
+<li><strong>手机端筛选，桌面深挖。</strong>碎片时间扫一眼 Triage 收件箱；真要看代码的时候切回桌面。</li>
+<li><strong>跨天的 Automations 不再带罪恶感。</strong>要跑三天的目标不再要求你随身带笔记本。</li>
+</ul>
+
+<p>它不变的部分：</p>
+<ul>
+<li>执行仍然在桌面。文件、凭据、沙盒——都还在你 Mac 上。手机只是远程窗口。</li>
+<li>Windows 作为被控端「即将支持」；目前只有 Mac 上的 Codex App 能被手机配对。</li>
+<li>AGENTS.md 是否生效、Codex Cloud 是否同步官方还没明确文档。别假设——配对之后自己测一下。</li>
+</ul>
+
+<p>目前在 iPhone、iPad、Android 上预览发布，所有套餐档位（含 Free 和 Go）逐步开放。官方公告：<a href="https://openai.com/index/work-with-codex-from-anywhere/">openai.com/index/work-with-codex-from-anywhere</a>。</p>
 
 </div>
 
@@ -4676,6 +4722,12 @@ sandbox_mode = "danger-full-access"
 <pre><code>开始任何非trivial任务之前，先用2-3个问题确认需求范围和验收标准，得到我的回答后再开干。</code></pre>
 
 <p>Codex每次启动会读AGENTS.md，从此就会先问再做。我自己在所有项目的AGENTS.md里都加了这条，省下来的「白做」时间远超写这一行的成本。</p>
+
+<p><strong>Q：Codex 能在手机上用吗？</strong></p>
+
+<p>2026-05-14 起可以了。OpenAI 把 Codex 集成进了 ChatGPT 手机端——iPhone、iPad、Android 三端，所有套餐档位（包括 Free 和 Go）都在滚动预览发布。重要的定位说明：<strong>它是桌面 Codex App 的远程控制面板，不是手机上独立跑的 agent</strong>。手机扫码和一台跑着 Codex App 的 Mac 配对，之后手机就能实时显示 thread 状态——终端输出、diff、测试结果、审批弹窗，并可远程操控。</p>
+
+<p>能做的事：浏览桌面正在跑的 thread、实时看截图和 diff、审批命令、响应决策点、新建任务。留在桌面上的事：文件、凭据、agent 真正的执行。Windows 作为被控端「即将支持」；目前被控端只能是 Mac。AGENTS.md 是否生效、Codex Cloud thread 是否同步官方还没明确文档——配对之后自己测一下。来源：<a href="https://openai.com/index/work-with-codex-from-anywhere/">openai.com/index/work-with-codex-from-anywhere</a>。</p>
 
 </div>
 
